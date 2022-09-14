@@ -4,6 +4,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.db.models.signals import post_save
+from django.conf import settings
 from django.contrib.auth.models import User
 
 #Imported Models
@@ -14,7 +15,7 @@ from library.models import *
 
 #!BorrowedUser
 class BorrowedUser(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    # user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     firstname = models.CharField(max_length=50,blank=True)
     lastname = models.CharField(max_length=50,blank=True)
     email_address = models.EmailField(max_length=50,unique=True,blank=False)
@@ -37,7 +38,7 @@ class BorrowedUser(models.Model):
         verbose_name_plural = 'BorrowedUsers'
 
 #?Create BorrowedUser Objects after creating User model
-def create_borrowed_user_profile_for_user(sender,instance,created,**kwargs):
-    if created:
-        BorrowedUser.objects.create(user=instance)
-post_save.connect(create_borrowed_user_profile_for_user,sender=User)
+# def create_borrowed_user_profile_for_user(sender,instance,created,**kwargs):
+#     if created:
+#         BorrowedUser.objects.create(user=instance)
+# post_save.connect(create_borrowed_user_profile_for_user,sender=User)

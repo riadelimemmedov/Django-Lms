@@ -12,8 +12,6 @@ from django.db import models
 class Library(models.Model):
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=50)
-    # library_users = models.ManyToManyField(BorrowedUser,related_name='libraryusers',blank=True)
-    # library_books = models.ManyToManyField(Book,related_name='librarybooks',blank=True)
     
     def __str__(self):
         return f"{self.name} --- {self.location}"

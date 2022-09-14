@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'book',
     'library',
     'librarian',
+    'custom_user',
     
     #third party libraries
     'rest_framework',
@@ -51,10 +52,11 @@ INSTALLED_APPS = [
 
 #!Define Rest Framework Authentication
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES':[
-        'rest_framework.authentication.TokenAuthentication'
-    ]
+
 }
+
+
+AUTH_USER_MODEL = 'custom_user.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -139,5 +141,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#test_user
+#?my django admin panel name and password
+#test
 #12345
