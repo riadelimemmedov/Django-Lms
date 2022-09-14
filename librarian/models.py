@@ -14,7 +14,7 @@ from library.models import *
 # Create your models here.
 #!Librarian
 class Librarian(models.Model):
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     firstname = models.CharField(max_length=50,blank=False)
     lastname = models.CharField(max_length=50,blank=False)
     working_library = models.ForeignKey(Library,on_delete=models.CASCADE)

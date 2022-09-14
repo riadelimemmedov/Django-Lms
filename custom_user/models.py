@@ -12,5 +12,5 @@ class CustomUser(AbstractUser):
         (BORROWER_ROLE_CODE, "BORROWER"),
         (LIBRARIAN_ROLE_CODE, "LIBRARIAN"),
     )
-    role = models.CharField(max_length=10,choices=USER_ROLES)
+    role = models.CharField(max_length=10,choices=USER_ROLES,default="BORROWER")
     

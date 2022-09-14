@@ -14,7 +14,7 @@ class Library(models.Model):
     location = models.CharField(max_length=50)
     
     def __str__(self):
-        return f"{self.name} --- {self.location}"
+        return f"{self.name}"
     
     class Meta:
         verbose_name = 'Library'

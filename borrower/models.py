@@ -15,12 +15,11 @@ from library.models import *
 
 #!BorrowedUser
 class BorrowedUser(models.Model):
-    # user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     firstname = models.CharField(max_length=50,blank=True)
     lastname = models.CharField(max_length=50,blank=True)
-    email_address = models.EmailField(max_length=50,unique=True,blank=False)
+    email_address = models.EmailField(max_length=50,blank=False)
     age = models.PositiveIntegerField(blank=True,default=0)
-    slug = models.SlugField(unique=True,db_index=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     borrowed_books = models.ManyToManyField(Book,related_name='borrowed_user',blank=True)
     borrowed_library = models.ForeignKey(Library,on_delete=models.CASCADE,null=True)
@@ -28,10 +27,6 @@ class BorrowedUser(models.Model):
     def __str__(self):
         return str(self.user)
     
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.user.username)
-        super().save(*args,**kwargs)
-
     class Meta:
         ordering = ['-created_at']
         verbose_name = 'BorrowedUser'
