@@ -9,3 +9,5 @@ class LibrarianSerializer(serializers.ModelSerializer):
     class Meta:
         model = Librarian
         fields = '__all__'
+        
+        

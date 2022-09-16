@@ -9,6 +9,7 @@ from custom_user.permissions import *
 from librarian.models import Librarian
 from librarian.serializers import LibrarianSerializer
 from .models import Library
+from custom_user.serializers import RegisterCustomUser
 from custom_user.models import CustomUser
 from .serializers import *
 
@@ -41,7 +42,9 @@ class LibraryDetail(generics.RetrieveUpdateDestroyAPIView):
 #!RegisterLibrarian => First Create CustomUser Model For Librarian Account
 class RegisterLibrarian(generics.ListCreateAPIView):
     queryset  = CustomUser.objects.all()
-    serializer_class = RegisterLibrarianSerializer
+    serializer_class = RegisterCustomUser
+    permission_classes = [permissions.IsAdminUser]#?Or Used AdminRequired custom permissions class for permission user check
+    
     
     def post(self,*args,**kwargs):
         print('request post data ', self.request.POST)
@@ -58,7 +61,7 @@ class RegisterLibrarian(generics.ListCreateAPIView):
 
 
 #!LibrarianListCreate
-class LibrarianListCreate(generics.ListCreateAPIView):
+class LibrarianCreate(generics.CreateAPIView):
     queryset = Librarian.objects.all()
     serializer_class = LibrarianSerializer
     permission_classes = [permissions.IsAdminUser]#?Or Used AdminRequired custom permissions class for permission user check

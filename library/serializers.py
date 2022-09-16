@@ -13,8 +13,3 @@ class LibrarySerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 
-#!RegisterLibrarianSerializer
-class RegisterLibrarianSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CustomUser
-        fields = ['username','password']
