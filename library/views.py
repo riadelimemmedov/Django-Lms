@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render,HttpResponseRedirect
+from django.contrib.auth import authenticate
 
 #Rest
 from rest_framework import generics,response
@@ -23,17 +24,17 @@ from .serializers import *
 ###########################################################################
 #Library CRUD Section
 #!LibraryList
-class LibraryListCreate(generics.ListCreateAPIView):
+class LibraryListCreate(generics.ListCreateAPIView):#!+
     queryset = Library.objects.all()
     serializer_class = LibrarySerializer
-    permission_classes = [permissions.IsAdminUser]#?Or Used AdminRequired custom permissions class for permission user check
+    permission_classes = [AdminRequired]#?Or Used permissions.IsAdminUser
 
 
 #!LibraryDetail
 class LibraryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Library.objects.all()
     serializer_class = LibrarySerializer
-    permission_classes = [permissions.IsAdminUser]#?Or Used AdminRequired custom permissions class for permission user check
+    permission_classes = [AdminRequired]#?Or Used permissions.IsAdminUser
 #############################################################################
 
 
@@ -43,8 +44,7 @@ class LibraryDetail(generics.RetrieveUpdateDestroyAPIView):
 class RegisterLibrarian(generics.ListCreateAPIView):
     queryset  = CustomUser.objects.all()
     serializer_class = RegisterCustomUser
-    permission_classes = [permissions.IsAdminUser]#?Or Used AdminRequired custom permissions class for permission user check
-    
+    permission_classes = [AdminRequired]#?Or Used permissions.IsAdminUser
     
     def post(self,*args,**kwargs):
         print('request post data ', self.request.POST)
@@ -52,24 +52,27 @@ class RegisterLibrarian(generics.ListCreateAPIView):
         username = self.request.POST['username']
         password = self.request.POST['password']
         
-        newLibrarian = CustomUser(username=username)
-        newLibrarian.set_password(password)
-        newLibrarian.role = 'LIBRARIAN'
-        newLibrarian.save()
-        #?After Created User,redirect to create/librarian/ url and create Librarian Object
-        return redirect('library:librarian-create')
+        if(authenticate(username=username,password=password)):
+                return response.Response('This librarian account already exists')
+        else:
+            newLibrarian = CustomUser(username=username)
+            newLibrarian.set_password(password)
+            newLibrarian.role = 'LIBRARIAN'
+            newLibrarian.save()
+            #?After Created User,redirect to create/librarian/ url and create Librarian Object
+            return redirect('library:librarian-create')
 
 
 #!LibrarianListCreate
 class LibrarianCreate(generics.CreateAPIView):
     queryset = Librarian.objects.all()
     serializer_class = LibrarianSerializer
-    permission_classes = [permissions.IsAdminUser]#?Or Used AdminRequired custom permissions class for permission user check
+    permission_classes = [AdminRequired]#?Or Used permissions.IsAdminUser
 
 
 #!LibrarianDelete
 class LibrarianDelete(generics.DestroyAPIView):
     queryset = Librarian.objects.all()
     serializer_class = LibrarianSerializer
-    permission_classes = [permissions.IsAdminUser]#?Or Used AdminRequired custom permissions class for permission user check
+    permission_classes = [AdminRequired]#?Or Used permissions.IsAdminUser
 ###########################################################################

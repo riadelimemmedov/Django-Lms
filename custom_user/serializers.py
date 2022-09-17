@@ -10,3 +10,5 @@ class RegisterCustomUser(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['username','password']
+        
+        
