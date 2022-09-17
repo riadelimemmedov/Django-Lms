@@ -18,7 +18,7 @@ from .models import BorrowedUser
 class ListBorrowerBook(APIView):
     # permission_classes = [BorrowerRequired]
     def get(self,request,format=None):
-        borrowed_books = BorrowedUser.objects.filter(user=self.request.user).all()
+        borrowed_books = BorrowedUser.objects.filter(user=self.request.user)
         serializer = BorrowerSerializer(borrowed_books,many=True)
         print('isledi bura birinci ')
         return response.Response(data=serializer.data,status=status.HTTP_200_OK)
@@ -38,7 +38,9 @@ class ListBorrowedBooksLibrary(APIView):
 #!ReturnBorrowedBooks
 class ReturnBorrowedBooks(ListBorrowerBook):
     def get(self,request,format=None):
-        returned_books = BorrowedUser.objects.filter(user=self.request.user).delete()
+        returned_books = BorrowedUser.objects.get(user=self.request.user)
+        returned_books.borrowed_books.clear()
+        # permission_classes = [BorrowerRequired]
         return HttpResponse('Successfully Returned Books To Library',status=status.HTTP_200_OK)
     #~add permisson class after finish serializerss
         

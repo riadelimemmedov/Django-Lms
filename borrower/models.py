@@ -18,7 +18,7 @@ class BorrowedUser(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     firstname = models.CharField(max_length=50,blank=True)
     lastname = models.CharField(max_length=50,blank=True)
-    email_address = models.EmailField(max_length=50,blank=False)
+    email_address = models.EmailField(max_length=50,blank=True)
     age = models.PositiveIntegerField(blank=True,default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     borrowed_books = models.ManyToManyField(Book,related_name='borrowed_user',blank=True)
