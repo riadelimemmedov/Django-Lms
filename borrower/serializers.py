@@ -15,9 +15,6 @@ class BorrowerSerializer(serializers.ModelSerializer):
     borrowed_library = LibrarySerializer(read_only=True)
     borrowed_books = serializers.StringRelatedField(read_only=True,many=True)
     
-    # user = serializers.CharField(source='user.username',read_only=True)
-    # borrowed_library = serializers.CharField(read_only=True)
-    
     class Meta:
         model = BorrowedUser
         fields = ['id','user','borrowed_books','borrowed_library']

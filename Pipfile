@@ -8,6 +8,7 @@ djangorestframework = "*"
 redis = "==3.5.3"
 celery = "==5.1.1"
 django = "==3.2.4"
+python-decouple = "*"
 
 [dev-packages]
 

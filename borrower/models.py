@@ -32,9 +32,3 @@ class BorrowedUser(models.Model):
         ordering = ['-created_at']
         verbose_name = 'BorrowedUser'
         verbose_name_plural = 'BorrowedUsers'
-
-#?Create BorrowedUser Objects after creating User model
-# def create_borrowed_user_profile_for_user(sender,instance,created,**kwargs):
-#     if created:
-#         BorrowedUser.objects.create(user=instance)
-# post_save.connect(create_borrowed_user_profile_for_user,sender=User)

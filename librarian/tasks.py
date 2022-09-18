@@ -1,5 +1,5 @@
-from celery.decorators import task #!task => utilize usually not repititive task sending
-from celery import shared_task #!shared_task => utilize often repititive task sending
+from celery.decorators import task
+from celery import shared_task
 from django.conf import settings
 from django.core.mail import send_mail,EmailMessage
 
@@ -13,5 +13,4 @@ def send_email_reminder(return_date,user_email):
         settings.EMAIL_HOST_USER,
         [user_email, ],
     )
-
     return email_data.send(fail_silently=False)

@@ -4,6 +4,7 @@ from .forms import CustomUserForm
 from .models import CustomUser
 # Register your models here.
 
+#!CustomUserAdmin
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
     add_form = CustomUserForm

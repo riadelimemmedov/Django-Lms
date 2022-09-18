@@ -16,15 +16,10 @@ from .serializers import *
 
 # Create your views here.
 
-# class LibrarianList(generics.ListCreateAPIView):
-#     queryset = Library.objects.all()
-#     serializer_class = LibrarySerializer
-
-
 ###########################################################################
 #Library CRUD Section
 #!LibraryList
-class LibraryListCreate(generics.ListCreateAPIView):#!+
+class LibraryListCreate(generics.ListCreateAPIView):
     queryset = Library.objects.all()
     serializer_class = LibrarySerializer
     permission_classes = [AdminRequired]#?Or Used permissions.IsAdminUser
@@ -47,8 +42,6 @@ class RegisterLibrarian(generics.ListCreateAPIView):
     permission_classes = [AdminRequired]#?Or Used permissions.IsAdminUser
     
     def post(self,*args,**kwargs):
-        print('request post data ', self.request.POST)
-        print('username ', self.request.POST['username'])
         username = self.request.POST['username']
         password = self.request.POST['password']
         email = self.request.POST['email']

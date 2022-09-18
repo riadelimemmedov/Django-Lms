@@ -31,4 +31,3 @@ class LendBookSerializer(serializers.ModelSerializer):
     
     def send_email(self,return_date,user_email):
         send_email_reminder.delay(return_date,user_email)
-        print('date return ' , return_date)

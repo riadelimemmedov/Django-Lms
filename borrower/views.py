@@ -36,6 +36,4 @@ class ReturnBorrowedBooks(ListBorrowerBook):
     permission_classes = [BorrowerRequired]
     def get(self,request,format=None):
         returned_books = BorrowedUser.objects.filter(user=self.request.user).delete()
-        return HttpResponse('Successfully Returned Books To Library',status=status.HTTP_200_OK)
-    #~add permisson class after finish serializerss
-        
+        return HttpResponse('Successfully Returned Books To Library',status=status.HTTP_200_OK)#or response.Response('Successfully ReturnedBooks To Library',status=status.HTTP_200_OK)

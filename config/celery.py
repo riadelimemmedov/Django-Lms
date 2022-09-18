@@ -13,15 +13,6 @@ app.conf.update(timezone='Asia/Baku')
 
 app.config_from_object(settings, namespace='CELERY')
 
-#!Celery Beat Settings
-# app.conf.beat_schedule = {
-#     #?If you are sending every 30 secons sending email use this object
-#     'send-email-all-users':{
-#         'task':'librarian.tasks',
-#         'schedule':30.0
-#     }
-# }
-
 app.autodiscover_tasks()
 
 

@@ -76,7 +76,7 @@ class CreateBorrowedUser(generics.CreateAPIView):
 class LendBorrowToBorrowedUser(generics.CreateAPIView):
     queryset = BorrowedUser.objects.all()
     serializer_class = LendBookSerializer
-    # permission_classes = [LibrarianRequired]
+    permission_classes = [LibrarianRequired]
     
     def perform_create(self,serializer):
         return_date = self.request.POST['return_date']
@@ -84,8 +84,6 @@ class LendBorrowToBorrowedUser(generics.CreateAPIView):
         user = CustomUser.objects.get(id=self.request.POST['user'])
         serializer.save(user=user)
         serializer.send_email(return_date,user.email)
-        
-    
 
 #!BorrowerDelete
 class BorrowerDelete(generics.DestroyAPIView):
