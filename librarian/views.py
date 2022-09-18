@@ -41,11 +41,13 @@ class RegisterBorrower(generics.CreateAPIView):#!Book Borrower
     def post(self,*args,**kwargs):
         username = self.request.POST['username']
         password = self.request.POST['password']
-        if(authenticate(username=username,password=password)):
+        email = self.request.POST['email']
+        if(CustomUser.objects.filter(username=username).exists()):
             return response.Response('This borrower account already exists')
         else:
             newLibrarian = CustomUser(username=username)
             newLibrarian.set_password(password)
+            newLibrarian.email = email
             newLibrarian.role = 'BORROWER'
             newLibrarian.save()
             return redirect('librarian:create-book-borrower')
@@ -74,11 +76,15 @@ class CreateBorrowedUser(generics.CreateAPIView):
 class LendBorrowToBorrowedUser(generics.CreateAPIView):
     queryset = BorrowedUser.objects.all()
     serializer_class = LendBookSerializer
-    permission_classes = [LibrarianRequired]
+    # permission_classes = [LibrarianRequired]
     
-    def perform_create(self, serializer):
+    def perform_create(self,serializer):
+        return_date = self.request.POST['return_date']
+        
         user = CustomUser.objects.get(id=self.request.POST['user'])
         serializer.save(user=user)
+        serializer.send_email(return_date,user.email)
+        
     
 
 #!BorrowerDelete

@@ -51,12 +51,14 @@ class RegisterLibrarian(generics.ListCreateAPIView):
         print('username ', self.request.POST['username'])
         username = self.request.POST['username']
         password = self.request.POST['password']
+        email = self.request.POST['email']
         
-        if(authenticate(username=username,password=password)):
+        if(CustomUser.objects.filter(username=username).exists()):
                 return response.Response('This librarian account already exists')
         else:
             newLibrarian = CustomUser(username=username)
             newLibrarian.set_password(password)
+            newLibrarian.email = email
             newLibrarian.role = 'LIBRARIAN'
             newLibrarian.save()
             #?After Created User,redirect to create/librarian/ url and create Librarian Object
